@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "profile-management-system-app",
-    "slug": "profile-management-system-app",
+    "slug": "profile-management-app",
     "scheme": "profile-management-system-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -28,6 +28,15 @@
     "plugins": [
       "expo-router",
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c48007f6-a5b9-4018-9677-99640202231b"
+      }
+    },
+    "owner": "utkarsh-singhal-26"
   }
 }
