@@ -1,8 +1,16 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
+import { nanoid } from "nanoid";
 import React, { useState } from "react";
-import { View, Text, ScrollView, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { writeData } from "../firebase/functions";
 
 const Record = () => {
   const [record, setRecord] = useState({
@@ -23,6 +31,33 @@ const Record = () => {
     });
   };
 
+  const handleSubmit = async () => {
+    if (
+      record.name === "" ||
+      record.contact === 0 ||
+      record.email === "" ||
+      record.address === "" ||
+      record.password === ""
+    ) {
+      alert("Please fill all the fields");
+      return;
+    }
+
+    try {
+      await writeData(nanoid(), record);
+      alert("Record saved successfully");
+      setRecord({
+        name: "",
+        contact: 0,
+        email: "",
+        address: "",
+        password: "",
+      });
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <SafeAreaView className="bg-primary h-full w-full flex items-center justify-center gap-4">
       <View className="w-[90%] flex flex-row items-center gap-10">
@@ -38,7 +73,7 @@ const Record = () => {
         </Text>
       </View>
 
-      <View className="w-[90%] h-[70%] bg-secondary rounded-xl p-8 flex items-center justify-between">
+      <View className="w-[90%] h-[80%] bg-secondary rounded-xl p-8 flex items-center justify-between">
         <ScrollView className="w-full" showsVerticalScrollIndicator={false}>
           <View className="space-y-4">
             <View>
@@ -94,6 +129,14 @@ const Record = () => {
               />
             </View>
           </View>
+
+          <TouchableOpacity
+            onPress={handleSubmit}
+            className="bg-primary p-4 rounded-lg w-full mt-6"
+            activeOpacity={0.7}
+          >
+            <Text className="text-white text-center">Save Record</Text>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     </SafeAreaView>
