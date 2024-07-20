@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@expo/vector-icons':
+        specifier: ^14.0.2
+        version: 14.0.2
       expo:
         specifier: ~51.0.21
         version: 51.0.21(@babel/core@7.24.9)(@babel/preset-env@7.24.8(@babel/core@7.24.9))

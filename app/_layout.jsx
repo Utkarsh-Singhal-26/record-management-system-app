@@ -3,6 +3,8 @@ import { SplashScreen, Stack } from "expo-router";
 import React, { useEffect } from "react";
 import "./globals.css";
 
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
   const [fontsLoaded, error] = useFonts({
     "Sen-Regular": require("../assets/fonts/Sen-Regular.ttf"),
@@ -31,6 +33,7 @@ export default function App() {
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="record" options={{ headerShown: false }} />
     </Stack>
   );
 }
