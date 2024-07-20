@@ -34,6 +34,7 @@ export default function App() {
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="record" options={{ headerShown: false }} />
+      <Stack.Screen name="list" options={{ headerShown: false }} />
     </Stack>
   );
 }
