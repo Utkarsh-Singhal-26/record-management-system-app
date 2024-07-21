@@ -34,18 +34,43 @@ const List = () => {
         <ScrollView horizontal>
           <DataTable>
             <DataTable.Header className="border-primary">
-              <DataTable.Title className="border-r-2 border-accent mr-2">Name</DataTable.Title>
-              <DataTable.Title className="border-r-2 border-accent mr-2">Contact</DataTable.Title>
-              <DataTable.Title className="border-r-2 border-accent mr-2">Email</DataTable.Title>
-              <DataTable.Title>Address</DataTable.Title>
+              <DataTable.Title className="border-r-2 border-accent mr-2">
+                Name
+              </DataTable.Title>
+              <DataTable.Title className="border-r-2 border-accent mr-2">
+                Contact
+              </DataTable.Title>
+              <DataTable.Title className="border-r-2 border-accent mr-2">
+                Email
+              </DataTable.Title>
+              <DataTable.Title className="border-r-2 border-accent mr-2">
+                Address
+              </DataTable.Title>
+              <DataTable.Title>Actions</DataTable.Title>
             </DataTable.Header>
 
             {records.map((record) => (
               <DataTable.Row key={record.id} className="border-accent">
-                <DataTable.Cell className="border-r-2 border-accent mr-2">{record.name}</DataTable.Cell>
-                <DataTable.Cell className="border-r-2 border-accent mr-2">{record.contact}</DataTable.Cell>
-                <DataTable.Cell className="border-r-2 border-accent mr-2">{record.email}</DataTable.Cell>
-                <DataTable.Cell>{record.address}</DataTable.Cell>
+                <DataTable.Cell className="border-r-2 border-accent mr-2">
+                  {record.name}
+                </DataTable.Cell>
+                <DataTable.Cell className="border-r-2 border-accent mr-2">
+                  {record.contact}
+                </DataTable.Cell>
+                <DataTable.Cell className="border-r-2 border-accent mr-2">
+                  {record.email}
+                </DataTable.Cell>
+                <DataTable.Cell className="border-r-2 border-accent mr-2">
+                  {record.address}
+                </DataTable.Cell>
+                <DataTable.Cell>
+                  <Link href={`/record?id=${record.id}`}>
+                    <Ionicons name="create-outline" size={24} color="#161622" />
+                  </Link>
+                  <Link href={`/`}>
+                    <Ionicons name="trash-outline" size={24} color="#161622" />
+                  </Link>
+                </DataTable.Cell>
               </DataTable.Row>
             ))}
           </DataTable>

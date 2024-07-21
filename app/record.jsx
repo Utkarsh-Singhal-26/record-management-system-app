@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, router, useLocalSearchParams } from "expo-router";
 import { nanoid } from "nanoid";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,9 +10,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { writeData } from "../firebase/functions";
+import { readData, writeData } from "../firebase/functions";
 
 const Record = () => {
+  const { id } = useLocalSearchParams();
+  const isEdit = !!id;
+
   const [record, setRecord] = useState({
     name: "",
     contact: 0,
@@ -20,6 +23,16 @@ const Record = () => {
     address: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (isEdit) {
+      const fetchData = async () => {
+        const response = await readData(id);
+        setRecord(response);
+      };
+      fetchData();
+    }
+  }, [id]);
 
   const handleChange = (value, field, isNumber) => {
     if (field === "contact") {
@@ -44,15 +57,20 @@ const Record = () => {
     }
 
     try {
-      await writeData(nanoid(), record);
-      alert("Record saved successfully");
-      setRecord({
-        name: "",
-        contact: 0,
-        email: "",
-        address: "",
-        password: "",
-      });
+      await writeData(isEdit ? id : nanoid(), record);
+      if (isEdit) {
+        alert("Record updated successfully");
+        router.push("/list");
+      } else {
+        alert("Record saved successfully");
+        setRecord({
+          name: "",
+          contact: 0,
+          email: "",
+          address: "",
+          password: "",
+        });
+      }
     } catch (error) {
       alert(error);
     }
@@ -69,7 +87,7 @@ const Record = () => {
           />
         </Link>
         <Text className="text-accent text-2xl font-sextrabold">
-          Enter Record Details
+          {isEdit ? "Edit" : "Enter"} Record Details
         </Text>
       </View>
 
@@ -135,7 +153,9 @@ const Record = () => {
             className="bg-primary p-4 rounded-lg w-full mt-6"
             activeOpacity={0.7}
           >
-            <Text className="text-white text-center">Save Record</Text>
+            <Text className="text-white text-center">
+              {isEdit ? "Update" : "Save"} Record
+            </Text>
           </TouchableOpacity>
         </ScrollView>
       </View>

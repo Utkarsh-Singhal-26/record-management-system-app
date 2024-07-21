@@ -2,6 +2,7 @@ import {
   collection,
   doc,
   getCountFromServer,
+  getDoc,
   getDocs,
   setDoc,
 } from "firebase/firestore";
@@ -21,6 +22,15 @@ export async function writeData(id, data) {
     return true;
   } catch (error) {
     return error;
+  }
+}
+
+export async function readData(id) {
+  const docSnap = await getDoc(doc(firestore, "users", id));
+  if (docSnap.exists()) {
+    return docSnap.data();
+  } else {
+    return null;
   }
 }
 
