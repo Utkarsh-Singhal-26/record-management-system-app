@@ -1,29 +1,21 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { DataTable } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { listData } from "../firebase/functions";
 
 const List = () => {
-  const records = [
-    {
-      id: 1,
-      name: "John Doe",
-      contact: "123-456-7890",
-      email: "john@example.com",
-      address: "123 Elm St, Springfield, IL, USA",
-      password: "********",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      contact: "987-654-3210",
-      email: "jane@example.com",
-      address: "456 Oak St, Springfield, IL, USA",
-      password: "********",
-    },
-  ];
+  const [records, setRecords] = useState([]);
+
+  useEffect(() => {
+    const fetchRecords = async () => {
+      const response = await listData();
+      setRecords(response);
+    };
+    fetchRecords();
+  }, []);
 
   return (
     <SafeAreaView className="bg-primary h-full w-full flex items-center justify-center gap-4">
@@ -42,20 +34,18 @@ const List = () => {
         <ScrollView horizontal>
           <DataTable>
             <DataTable.Header className="border-primary">
-              <DataTable.Title>Name</DataTable.Title>
-              <DataTable.Title>Contact</DataTable.Title>
-              <DataTable.Title>Email</DataTable.Title>
+              <DataTable.Title className="border-r-2 border-accent mr-2">Name</DataTable.Title>
+              <DataTable.Title className="border-r-2 border-accent mr-2">Contact</DataTable.Title>
+              <DataTable.Title className="border-r-2 border-accent mr-2">Email</DataTable.Title>
               <DataTable.Title>Address</DataTable.Title>
-              <DataTable.Title>Password</DataTable.Title>
             </DataTable.Header>
 
             {records.map((record) => (
               <DataTable.Row key={record.id} className="border-accent">
-                <DataTable.Cell>{record.name}</DataTable.Cell>
-                <DataTable.Cell>{record.contact}</DataTable.Cell>
-                <DataTable.Cell>{record.email}</DataTable.Cell>
+                <DataTable.Cell className="border-r-2 border-accent mr-2">{record.name}</DataTable.Cell>
+                <DataTable.Cell className="border-r-2 border-accent mr-2">{record.contact}</DataTable.Cell>
+                <DataTable.Cell className="border-r-2 border-accent mr-2">{record.email}</DataTable.Cell>
                 <DataTable.Cell>{record.address}</DataTable.Cell>
-                <DataTable.Cell>{record.password}</DataTable.Cell>
               </DataTable.Row>
             ))}
           </DataTable>

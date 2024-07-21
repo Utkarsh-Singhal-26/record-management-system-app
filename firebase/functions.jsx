@@ -2,6 +2,7 @@ import {
   collection,
   doc,
   getCountFromServer,
+  getDocs,
   setDoc,
 } from "firebase/firestore";
 import { firestore } from ".";
@@ -21,4 +22,12 @@ export async function writeData(id, data) {
   } catch (error) {
     return error;
   }
+}
+
+export async function listData() {
+  const querySnapshot = await getDocs(collection(firestore, "users"));
+  return querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
 }
