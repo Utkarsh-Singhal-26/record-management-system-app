@@ -3,7 +3,7 @@ import { SplashScreen, Stack } from "expo-router";
 import React, { useEffect } from "react";
 import "./globals.css";
 
-// SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [fontsLoaded, error] = useFonts({
@@ -14,21 +14,21 @@ export default function App() {
     "Sen-ExtraBold": require("../assets/fonts/Sen-ExtraBold.ttf"),
   });
 
-  // useEffect(() => {
-  //   if (error) throw error;
+  useEffect(() => {
+    if (error) throw error;
 
-  //   if (fontsLoaded) {
-  //     SplashScreen.hideAsync();
-  //   }
-  // }, []);
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, []);
 
-  // if (!fontsLoaded) {
-  //   return null;
-  // }
+  if (!fontsLoaded) {
+    return null;
+  }
 
-  // if (!fontsLoaded && !error) {
-  //   return null;
-  // }
+  if (!fontsLoaded && !error) {
+    return null;
+  }
 
   return (
     <Stack>

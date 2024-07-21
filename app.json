@@ -28,7 +28,18 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Sen-Regular.ttf",
+            "./assets/fonts/Sen-Medium.ttf",
+            "./assets/fonts/Sen-SemiBold.ttf",
+            "./assets/fonts/Sen-Bold.ttf",
+            "./assets/fonts/Sen-ExtraBold.ttf"
+          ]
+        }
+      ]
     ],
     "extra": {
       "router": {
