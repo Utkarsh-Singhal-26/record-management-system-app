@@ -1,5 +1,6 @@
 import {
   collection,
+  deleteDoc,
   doc,
   getCountFromServer,
   getDoc,
@@ -40,4 +41,13 @@ export async function listData() {
     id: doc.id,
     ...doc.data(),
   }));
+}
+
+export async function deleteData(id) {
+  try {
+    await deleteDoc(doc(firestore, "users", id));
+    return true;
+  } catch (error) {
+    return error;
+  }
 }

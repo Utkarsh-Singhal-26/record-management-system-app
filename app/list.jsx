@@ -1,10 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { DataTable } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { listData } from "../firebase/functions";
+import { deleteData, listData } from "../firebase/functions";
 
 const List = () => {
   const [records, setRecords] = useState([]);
@@ -67,9 +67,18 @@ const List = () => {
                   <Link href={`/record?id=${record.id}`}>
                     <Ionicons name="create-outline" size={24} color="#161622" />
                   </Link>
-                  <Link href={`/`}>
+                  <TouchableOpacity
+                    onPress={async () => {
+                      await deleteData(record.id);
+                      const response = await listData();
+                      if (response.length === 0) {
+                        router.push("/");
+                      }
+                      setRecords(response);
+                    }}
+                  >
                     <Ionicons name="trash-outline" size={24} color="#161622" />
-                  </Link>
+                  </TouchableOpacity>
                 </DataTable.Cell>
               </DataTable.Row>
             ))}

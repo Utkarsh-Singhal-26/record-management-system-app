@@ -60,19 +60,13 @@ const Record = () => {
       await writeData(isEdit ? id : nanoid(), record);
       if (isEdit) {
         alert("Record updated successfully");
-        router.push("/list");
       } else {
         alert("Record saved successfully");
-        setRecord({
-          name: "",
-          contact: 0,
-          email: "",
-          address: "",
-          password: "",
-        });
       }
     } catch (error) {
       alert(error);
+    } finally {
+      router.push("/list");
     }
   };
 
