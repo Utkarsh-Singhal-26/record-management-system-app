@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.utkarshsinghal26.profilemanagementapp"
     },
     "web": {
       "bundler": "metro",
@@ -34,7 +35,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "c48007f6-a5b9-4018-9677-99640202231b"
+        "projectId": "32b60be2-9df2-4fb9-a694-f29456ec9586"
       }
     },
     "owner": "utkarsh-singhal-26"
