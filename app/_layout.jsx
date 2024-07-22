@@ -1,12 +1,14 @@
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect } from "react";
+import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import "./globals.css";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const [fontsLoaded, error] = useFonts({
+  const [fontsLoaded] = useFonts({
     "Sen-Regular": require("../assets/fonts/Sen-Regular.ttf"),
     "Sen-Medium": require("../assets/fonts/Sen-Medium.ttf"),
     "Sen-SemiBold": require("../assets/fonts/Sen-SemiBold.ttf"),
@@ -15,26 +17,22 @@ export default function App() {
   });
 
   useEffect(() => {
-    if (error) throw error;
-
     if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, []);
+  }, [fontsLoaded]);
 
   if (!fontsLoaded) {
     return null;
   }
 
-  if (!fontsLoaded && !error) {
-    return null;
-  }
-
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="record" options={{ headerShown: false }} />
-      <Stack.Screen name="list" options={{ headerShown: false }} />
-    </Stack>
+    <ThemeProvider value={DefaultTheme}>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="record" options={{ headerShown: false }} />
+        <Stack.Screen name="list" options={{ headerShown: false }} />
+      </Stack>
+    </ThemeProvider>
   );
 }

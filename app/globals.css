@@ -1,7 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.input-field {
-  @apply border-2 border-accent p-4 rounded-lg focus:border-accent focus:outline-none placeholder:text-gray-400;
-}
