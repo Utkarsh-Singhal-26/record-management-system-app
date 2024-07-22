@@ -1,6 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Link, router, useLocalSearchParams } from "expo-router";
-import { nanoid } from "nanoid";
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -10,6 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import uuid from "react-native-uuid";
 import { readData, writeData } from "../firebase/functions";
 
 const Record = () => {
@@ -57,7 +57,7 @@ const Record = () => {
     }
 
     try {
-      await writeData(isEdit ? id : nanoid(), record);
+      await writeData(isEdit ? id : uuid.v4(), record);
       if (isEdit) {
         alert("Record updated successfully");
       } else {
@@ -71,7 +71,7 @@ const Record = () => {
   };
 
   return (
-    <SafeAreaView className="bg-primary h-full w-full flex items-center justify-center gap-4">
+    <SafeAreaView className="bg-primary h-full flex items-center justify-center gap-4">
       <View className="w-[90%] flex flex-row items-center gap-10">
         <Link href="/">
           <Ionicons
@@ -92,7 +92,7 @@ const Record = () => {
               <Text className="font-ssemibold text-lg">Name: </Text>
               <TextInput
                 placeholder="Utkarsh Singhal"
-                className="input-field"
+                className="border-2 border-accent p-4 rounded-lg focus:border-accent focus:outline-none placeholder:text-gray-400"
                 value={record.name}
                 onChangeText={(value) => handleChange(value, "name")}
               />
@@ -102,7 +102,7 @@ const Record = () => {
               <Text className="font-ssemibold text-lg">Contact: </Text>
               <TextInput
                 placeholder="7303478907"
-                className="input-field"
+                className="border-2 border-accent p-4 rounded-lg focus:border-accent focus:outline-none placeholder:text-gray-400"
                 keyboardType="numeric"
                 value={record.contact === 0 ? "" : record.contact.toString()}
                 onChangeText={(value) => handleChange(value, "contact", true)}
@@ -113,7 +113,7 @@ const Record = () => {
               <Text className="font-ssemibold text-lg">Email: </Text>
               <TextInput
                 placeholder="singhalutkarsh26@gmail.com"
-                className="input-field"
+                className="border-2 border-accent p-4 rounded-lg focus:border-accent focus:outline-none placeholder:text-gray-400"
                 keyboardType="email-address"
                 value={record.email}
                 onChangeText={(value) => handleChange(value, "email")}
@@ -124,7 +124,7 @@ const Record = () => {
               <Text className="font-ssemibold text-lg">Address: </Text>
               <TextInput
                 placeholder="Delhi, India"
-                className="input-field"
+                className="border-2 border-accent p-4 rounded-lg focus:border-accent focus:outline-none placeholder:text-gray-400"
                 value={record.address}
                 onChangeText={(value) => handleChange(value, "address")}
               />
@@ -134,8 +134,8 @@ const Record = () => {
               <Text className="font-ssemibold text-lg">Password: </Text>
               <TextInput
                 placeholder="Enter Password"
-                className="input-field"
-                secureTextEntry={true}
+                className="border-2 border-accent p-4 rounded-lg focus:border-accent focus:outline-none placeholder:text-gray-400"
+                // secureTextEntry={true}
                 value={record.password}
                 onChangeText={(value) => handleChange(value, "password")}
               />

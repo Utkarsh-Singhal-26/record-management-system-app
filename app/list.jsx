@@ -18,7 +18,7 @@ const List = () => {
   }, []);
 
   return (
-    <SafeAreaView className="bg-primary h-full w-full flex items-center justify-center gap-4">
+    <SafeAreaView className="bg-primary h-full flex items-center justify-center gap-4">
       <View className="w-[90%] flex flex-row items-center gap-10 mb-4">
         <Link href="/">
           <Ionicons
