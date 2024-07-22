@@ -16,11 +16,11 @@ const Home = () => {
   }, []);
 
   return (
-    <SafeAreaView className="bg-primary h-full flex items-center justify-center gap-4">
+    <SafeAreaView className="bg-primary h-full flex flex-1 items-center justify-center gap-4">
       <Text className="text-accent text-3xl text-center font-sextrabold">
         Record Management System App
       </Text>
-      <View className="w-[90%] h-[30%] bg-secondary rounded-xl p-8 flex items-center justify-between">
+      <View className="w-[90%] h-[30%] bg-secondary rounded-xl p-8 flex justify-between">
         <View className="w-full">
           <Text className="font-sbold">
             Number of Records currently with us :
@@ -32,7 +32,7 @@ const Home = () => {
           />
         </View>
 
-        <View className="w-full grid grid-cols-2 gap-4">
+        <View className="w-full grid grid-cols-2 gap-2">
           <TouchableOpacity
             className="bg-primary p-4 rounded-lg w-full"
             activeOpacity={0.7}
