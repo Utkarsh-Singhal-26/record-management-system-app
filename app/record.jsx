@@ -71,7 +71,7 @@ const Record = () => {
   };
 
   return (
-    <SafeAreaView className="bg-primary h-full flex items-center justify-center gap-4">
+    <SafeAreaView className="bg-primary h-full flex flex-1 items-center justify-center gap-4">
       <View className="w-[90%] flex flex-row items-center gap-10">
         <Link href="/">
           <Ionicons
@@ -135,7 +135,7 @@ const Record = () => {
               <TextInput
                 placeholder="Enter Password"
                 className="border-2 border-accent p-4 rounded-lg focus:border-accent focus:outline-none placeholder:text-gray-400"
-                // secureTextEntry={true}
+                secureTextEntry={true}
                 value={record.password}
                 onChangeText={(value) => handleChange(value, "password")}
               />
