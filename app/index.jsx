@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { countRecord } from "../firebase/functions";
 
@@ -33,22 +33,20 @@ const Home = () => {
         </View>
 
         <View className="w-full grid grid-cols-2 gap-2">
-          <TouchableOpacity
+          <Pressable
             className="bg-primary p-4 rounded-lg w-full"
-            activeOpacity={0.7}
             onPress={() => {
               router.push("/record");
             }}
           >
             <Text className="text-white text-center">Create Record</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </Pressable>
+          <Pressable
             className={`p-4 rounded-lg w-full ${
               records === 0
                 ? "bg-gray-300 border-gray-300"
                 : "border-2 border-primary"
             }`}
-            activeOpacity={0.7}
             disabled={records === 0}
             onPress={() => {
               if (records !== 0) {
@@ -63,7 +61,7 @@ const Home = () => {
             >
               View Records
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </SafeAreaView>
