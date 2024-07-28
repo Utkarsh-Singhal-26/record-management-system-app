@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Link, router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, Pressable } from "react-native";
 import { DataTable } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { deleteData, listData } from "../firebase/functions";
@@ -67,7 +67,7 @@ const List = () => {
                   <Link href={`/record?id=${record.id}`}>
                     <Ionicons name="create-outline" size={24} color="#161622" />
                   </Link>
-                  <TouchableOpacity
+                  <Pressable
                     onPress={async () => {
                       await deleteData(record.id);
                       const response = await listData();
@@ -78,7 +78,7 @@ const List = () => {
                     }}
                   >
                     <Ionicons name="trash-outline" size={24} color="#161622" />
-                  </TouchableOpacity>
+                  </Pressable>
                 </DataTable.Cell>
               </DataTable.Row>
             ))}

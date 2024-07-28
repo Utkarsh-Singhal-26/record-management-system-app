@@ -6,9 +6,11 @@ import {
   Text,
   ScrollView,
   TextInput,
-  TouchableOpacity,
+  Pressable,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as ImagePicker from "expo-image-picker";
 import uuid from "react-native-uuid";
 import { readData, writeData } from "../firebase/functions";
 
@@ -22,6 +24,7 @@ const Record = () => {
     email: "",
     address: "",
     password: "",
+    image: null,
   });
 
   useEffect(() => {
@@ -33,6 +36,19 @@ const Record = () => {
       fetchData();
     }
   }, [id]);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setRecord((prev) => ({ ...prev, image: result.assets[0].uri }));
+    }
+  };
 
   const handleChange = (value, field, isNumber) => {
     if (field === "contact") {
@@ -50,7 +66,8 @@ const Record = () => {
       record.contact === 0 ||
       record.email === "" ||
       record.address === "" ||
-      record.password === ""
+      record.password === "" ||
+      record.image === null
     ) {
       alert("Please fill all the fields");
       return;
@@ -140,9 +157,25 @@ const Record = () => {
                 onChangeText={(value) => handleChange(value, "password")}
               />
             </View>
+
+            <View>
+              <Text className="font-ssemibold text-lg">Profile Picture: </Text>
+              <Pressable onPress={pickImage}>
+                {record.image ? (
+                  <Image
+                    source={{ uri: record.image }}
+                    className="w-60 h-60 object-contain rounded-lg"
+                  />
+                ) : (
+                  <Text className="font-smedium w-full border-2 border-primary text-black text-center py-2 rounded-lg">
+                    Pick an Image
+                  </Text>
+                )}
+              </Pressable>
+            </View>
           </View>
 
-          <TouchableOpacity
+          <Pressable
             onPress={handleSubmit}
             className="bg-primary p-4 rounded-lg w-full mt-6"
             activeOpacity={0.7}
@@ -150,7 +183,7 @@ const Record = () => {
             <Text className="text-white text-center">
               {isEdit ? "Update" : "Save"} Record
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         </ScrollView>
       </View>
     </SafeAreaView>

@@ -7,7 +7,13 @@ import {
   getDocs,
   setDoc,
 } from "firebase/firestore";
-import { firestore } from ".";
+import { firestore, storage } from ".";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadString,
+} from "firebase/storage";
 
 export async function countRecord() {
   const querySnapshot = await getCountFromServer(
@@ -17,9 +23,16 @@ export async function countRecord() {
   return size;
 }
 
+async function uploadImage(id, image) {
+  const storageRef = ref(storage, `app-images/${id}`);
+  await uploadString(storageRef, image, "data_url");
+  return getDownloadURL(storageRef);
+}
+
 export async function writeData(id, data) {
   try {
-    await setDoc(doc(firestore, "users", id), data);
+    const imageRef = await uploadImage(id, data.image);
+    await setDoc(doc(firestore, "users", id), { ...data, image: imageRef });
     return true;
   } catch (error) {
     return error;
@@ -43,8 +56,14 @@ export async function listData() {
   }));
 }
 
+async function deleteImage(id) {
+  const storageRef = ref(storage, `app-images/${id}`);
+  await deleteObject(storageRef);
+}
+
 export async function deleteData(id) {
   try {
+    await deleteImage(id);
     await deleteDoc(doc(firestore, "users", id));
     return true;
   } catch (error) {
