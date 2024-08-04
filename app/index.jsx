@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { countRecord } from "../firebase/functions";
 
@@ -25,11 +25,9 @@ const Home = () => {
           <Text className="font-sbold">
             Number of Records currently with us :
           </Text>
-          <TextInput
-            value={records}
-            className="border-2 border-accent p-4 rounded-lg focus:border-accent focus:outline-none placeholder:text-gray-400"
-            readOnly
-          />
+          <Text className="border-2 border-accent p-4 rounded-lg focus:border-accent focus:outline-none placeholder:text-gray-400">
+            {records}
+          </Text>
         </View>
 
         <View className="w-full grid grid-cols-2 gap-2">
